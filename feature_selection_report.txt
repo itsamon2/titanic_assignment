@@ -1,0 +1,50 @@
+TITANIC FEATURE SELECTION REPORT
+================================
+
+METHOD 1: Correlation Analysis
+------------------------------
+Threshold: 0.8
+Dropped: FamilySize (correlated with SibSp = 0.89)
+Reason: FamilySize = SibSp + Parch + 1, so it's redundant
+
+METHOD 2: Random Forest Feature Importance
+------------------------------------------
+Top 5 Features:
+1. Sex (0.186) - Gender is strongest survival predictor
+2. Age (0.174) - "Women and children first" policy
+3. FareLog (0.138) - Wealth indicator (log-transformed)
+4. Fare (0.140) - Original fare (will drop, use FareLog instead)
+5. Title (0.110) - Social status/age/gender proxy
+
+Dropped: 
+- Fare (redundant with FareLog)
+- AgeBin (less informative than continuous Age)
+
+METHOD 3: Recursive Feature Elimination (RFE)
+---------------------------------------------
+Optimal features: 9
+Selected: Pclass, Sex, Age, SibSp, Fare, HasCabin, Title, FamilySize, FareLog
+
+Note: RFE included both Fare and FareLog, and both SibSp and FamilySize.
+We will manually refine to remove redundancy.
+
+FINAL SELECTED FEATURES (8 features)
+------------------------------------
+1. Sex          - Categorical (male/female), highest importance
+2. Age          - Continuous, captures "children first" policy  
+3. FareLog      - Log-transformed fare, wealth indicator
+4. Title        - Categorical (Mr/Mrs/Miss/Master/Rare), social status
+5. Pclass       - Ordinal (1/2/3), passenger class
+6. HasCabin     - Binary (0/1), proxy for 1st class/wealth
+7. FamilySize   - Discrete (1-11), family support vs burden
+8. Embarked     - Categorical (S/C/Q), port of embarkation
+
+DROPPED FEATURES & REASONS
+--------------------------
+- PassengerId: ID column, no predictive value
+- Name: Extracted Title, dropped raw name
+- Ticket: Random alphanumeric, no pattern
+- Cabin: 77% missing, converted to HasCabin
+- SibSp/Parch: Combined into FamilySize
+- Fare: Replaced by FareLog (reduced skewness from 4.79 to 0.63)
+- AgeBin: Less informative than continuous Age
