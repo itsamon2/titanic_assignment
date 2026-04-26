@@ -46,6 +46,7 @@ Predict passenger survival using feature engineering and selection.
 
 \## Author
 
-Amon Aiyabei Sawe
-S13/02934/23
+-Amon Aiyabei Sawe
+
+-S13/02934/23
 
