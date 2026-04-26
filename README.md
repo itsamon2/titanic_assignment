@@ -214,11 +214,6 @@ jupyter notebook
 - Recursive Feature Elimination (RFE)
 - Justification for kept/dropped features
 
-✅ **GitHub Submission**
-- Clean folder structure
-- README.md with approach and findings
-- requirements.txt
-- Proper commit messages
 
 ---
 
